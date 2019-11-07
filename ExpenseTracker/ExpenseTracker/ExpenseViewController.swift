@@ -19,7 +19,7 @@ class ExpensesViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        expensesTableView.dataSource = self
         dateFormatter.timeStyle = .long
         dateFormatter.dateStyle = .long
     }
@@ -61,8 +61,8 @@ extension ExpensesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = expensesTableView.dequeueReusableCell(withIdentifier: "expenseCell", for: indexPath)
         let expense = expenses[indexPath.row]
-        
-        cell.textLabel?.text = expense.name
+        let title = expense.name! + " $" + String(expense.amount)
+        cell.textLabel?.text = title
         
         if let date = expense.date {
             cell.detailTextLabel?.text = dateFormatter.string(from: date)
